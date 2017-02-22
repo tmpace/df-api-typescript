@@ -1,0 +1,20 @@
+{
+  "name": "df-api-typescript",
+  "version": "0.0.1",
+  "description": "Datafiniti API Written in TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "Trevor Pace",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.0.35",
+    "@types/sequelize": "^4.0.41",
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "mysql": "^2.13.0",
+    "sequelize": "^3.30.2"
+  }
+}
