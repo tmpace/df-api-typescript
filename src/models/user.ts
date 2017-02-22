@@ -13,6 +13,11 @@ function DefineUser(db) {
       }
     },
 
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+
     firstName: { 
       type: Sequelize.STRING,
       allowNull: false

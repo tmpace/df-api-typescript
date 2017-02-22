@@ -1,5 +1,6 @@
 /* Dependenies */
 import { Router, Request, Response } from 'express'
+import * as bcrypt from 'bcrypt'
 import * as sequelize from 'sequelize'
 
 /* Model Imports */
@@ -25,15 +26,24 @@ class UsersRequestHandler {
   }
 
   addUser(req: Request, res: Response) {
-    const UserData = req.body || null
+    const UserData = req.body
 
-    if (UserData) {
-      User.create(UserData)
-          .then(data => res.json(data))
-          .catch(sequelize.ValidationError, err => res.status(400).end())
-          .catch(err => res.status(400).end())
+    if (UserData && UserData.email && UserData.password) {
+      const { password } = UserData
+
+      bcrypt.hash(password, 10).then(hash => {
+        UserData.password = hash
+        
+        User.create(UserData)
+            .then(data => res.json(data))
+            .catch(sequelize.ValidationError, err => { 
+              let errors = err.errors.map(err => ({ message: err.message }) )
+
+              res.status(400).json(errors) 
+            })
+      })
     } else {
-      res.status(400).end()
+      res.status(400).json({ error: 'user data not provided' })
     }
   }
 }
