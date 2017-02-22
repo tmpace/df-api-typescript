@@ -11,6 +11,7 @@ class AuthMiddleware {
     try {
       const decodedJWT = jwt.verify(authToken, 'supersecret')
 
+      // If the user is an admin, move on
       if (decodedJWT.isAdmin) {
         next()
       } else {
