@@ -27,27 +27,33 @@ class AuthenticationHandler {
       User.findOne({ where: { email } })
           .then(data => {
 
+            // If we didn't find a user matching the email
             if (!data) return res.status(400).json({ message: 'User not found' })
 
             const encryptedPassword = data.password
 
+            // Compare plaintext and encrypted passwords
             bcrypt.compare(password, encryptedPassword)
                   .then(valid => {
                     const { dataValues } = data
 
+                    // If the passwords matched
                     if (valid) {
                       let token = jwt.sign({ email: dataValues.email, isAdmin: dataValues.isAdmin }, 'supersecret')
                       res.json({ token }) 
                     }
-                    res.json({ message: 'invalid password'} )
+
+                    // Otherwise the password was invalid
+                    res.status(400).json({ message: 'invalid password'} )
                   })
           })
           .catch(err => {
-            console.log(err)
+            // Server error
+            res.status(500)
           })
     } else {
       // Not enough info provided
-      res.status(400).json({ message: 'must provide a username and password' })
+      res.status(400).json({ message: 'must provide an email and password' })
     }
   }
 }
