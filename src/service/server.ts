@@ -26,6 +26,7 @@ class Server {
   }
 
   public start(): void {
+    // Sync with DB and then start the server
     db.sync().then(() => {
       this.middleware()
       this.routes()

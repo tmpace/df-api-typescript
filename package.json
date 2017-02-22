@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
-    "test": "mocha"
+    "test": "mocha",
+    "compile-watch": "tsc --watch",
+    "dev": "nodemon dist/index.js"
   },
   "keywords": [],
   "author": "Trevor Pace",
@@ -16,10 +18,10 @@
     "axios": "^0.15.3",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.16.1",
-    "chai-as-promised": "^6.0.0",
     "express": "^4.14.1",
     "jsonwebtoken": "^7.3.0",
     "mysql": "^2.13.0",
+    "nodemon": "^1.11.0",
     "sequelize": "^3.30.2"
   }
 }
