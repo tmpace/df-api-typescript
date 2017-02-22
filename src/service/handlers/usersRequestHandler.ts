@@ -2,8 +2,12 @@
 import { Router, Request, Response } from 'express'
 import * as bcrypt from 'bcrypt'
 import * as sequelize from 'sequelize'
+import * as jwt from 'jsonwebtoken'
 
-/* Model Imports */
+/* Middleware */
+import AuthMiddleware from '../middleware/authMiddleware'
+
+/* Models */
 import { User } from '../../models'
 
 class UsersRequestHandler {
@@ -16,7 +20,7 @@ class UsersRequestHandler {
 
   init(): void {
     this.router.get('/', this.getUsers)
-    this.router.post('/', this.addUser)
+    this.router.post('/', AuthMiddleware.verifyAdmin, this.addUser)
   }
 
   getUsers(req: Request, res: Response) {
