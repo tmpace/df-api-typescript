@@ -7,6 +7,7 @@ import * as bodyParser from 'body-parser'
 
 /* Request Handlers */
 import UsersRequestHandler from './handlers/usersRequestHandler'
+import AuthenticationHandler from './handlers/authenticationHandler'
 
 class Server {
   private app: express.Application
@@ -17,6 +18,7 @@ class Server {
 
   private routes(): void {
     this.app.use('/users', UsersRequestHandler)
+    this.app.use('/auth', AuthenticationHandler)
   }
 
   private middleware(): void {
