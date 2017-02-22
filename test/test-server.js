@@ -14,6 +14,10 @@ describe('Users', () => {
       })
     })
 
+    it('Should retrurn proper JSON', () => {
+      expect(result.data).to.be.json
+    })
+
     it('Should return an array of users', () => {
       expect(result.data).to.be.a('array')
     })
