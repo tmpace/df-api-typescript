@@ -7,9 +7,10 @@ import DefineUser from './user'
 // Create DB Connection
 export const db = new Sequelize(
   'datafiniti', 
-  'root', 
-  null, 
+  'datafiniti', 
+  'datafiniti', 
   {
+    host: process.env.DATABASE_HOST || 'localhost',
     dialect: 'mysql',
     port: 3306
   }

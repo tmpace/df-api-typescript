@@ -21,17 +21,27 @@ class Server {
     this.app.use('/auth', AuthenticationHandler)
   }
 
+  private connectDB(): void {
+    db.sync().then(() => {
+      console.log('Successfully connected to DB')
+    })
+    .catch(e => {
+      console.log('Error connecting to DB, retrying in 5s', e)
+
+      setTimeout(() => this.connectDB(), 5000)
+    })
+  }
+
   private middleware(): void {
     this.app.use(bodyParser.json())
   }
 
   public start(): void {
     // Sync with DB and then start the server
-    db.sync().then(() => {
-      this.middleware()
-      this.routes()
-      this.app.listen('3000', () => console.log('App listening on port 3000'))
-    })
+    this.connectDB()
+    this.middleware()
+    this.routes()
+    this.app.listen('8000', () => console.log('App listening on port 3000'))
   }
 }
 
