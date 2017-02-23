@@ -1,0 +1,6 @@
+FROM mysql
+
+ENV MYSQL_ROOT_PASSWORD datafiniti
+ENV MYSQL_DATABASE datafiniti
+ENV MYSQL_USER datafiniti
+ENV MYSQL_PASSWORD datafiniti
