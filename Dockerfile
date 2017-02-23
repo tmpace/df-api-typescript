@@ -4,17 +4,17 @@ FROM node:6.1
 # Add all files in the current directory into the /app folder
 ADD . /app
 
+# Set our working directory to /app
+WORKDIR /app
+
 # Install TypeScript and Project Dependencies
-RUN cd /app  \
-    && npm install --silent -g typescript \
-    && npm install --silent
+RUN npm install --silent -g typescript
+
+# Install Project Dependencies
+RUN npm install --silent
 
 # Compile Typescript
-RUN cd /app \
-    && tsc
-
-# Expose our applications port
-EXPOSE 8000
+RUN tsc
 
 # Run the server
-CMD ["node", "/app/dist/index.js"]
+CMD ["npm", "start"]
