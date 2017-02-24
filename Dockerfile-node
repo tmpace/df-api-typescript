@@ -1,0 +1,23 @@
+# Base Node 6.1.0
+FROM node:6.1
+
+# Add all files in the current directory into the /app folder
+ADD package.json /app/
+ADD nodemon.json /app/
+ADD tsconfig.json /app/
+ADD ./dist/ /app/
+
+# Set our working directory to /app
+WORKDIR /app/
+
+# Install TypeScript and Project Dependencies
+RUN npm install --silent -g typescript
+
+# Install Project Dependencies
+RUN npm install --silent
+
+# expose port 8000
+EXPOSE 8000
+
+# Run the server
+CMD tsc && npm run dev

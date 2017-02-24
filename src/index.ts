@@ -10,10 +10,11 @@ if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`)
 
   // Fork Workers
-  for (let i = 0; i < numCPUs; i++) {
+  for (let i = 0; i < 5; i++) {
     cluster.fork()
   }
 
+  // Log if a worker dies
   cluster.on('exit', (worker, code, signal) => {
     console.log(`worker ${worker.process.pid} died`)
   })

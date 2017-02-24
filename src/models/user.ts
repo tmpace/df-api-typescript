@@ -1,7 +1,11 @@
 /* Dependencies */
 import * as Sequelize from 'sequelize';
 
-// Model Definition
+/**
+ * Creates a User model in the database
+ * @param {DatabaseConnection} db 
+ * @return {Model} User
+ */
 function DefineUser(db) {
   const User = db.define('user', {
     email: { 
@@ -48,8 +52,12 @@ function DefineUser(db) {
     } 
   })
 
-  // Ensure email is unique
-  function validateUniqueEmail(value, next) {
+  /**
+   * Validates a unique email address before creating a user
+   * @param {String} value 
+   * @param {Function} next
+   */
+  function validateUniqueEmail(value: String, next: Function) {
     User.find({ where: {email: value}})
         .then((user) => {
           if (user) {
