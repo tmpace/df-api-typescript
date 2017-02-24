@@ -1,12 +1,18 @@
 version: '2'
 services: 
   df-server:
-    build: ./
+    build:
+      context: ./
+      dockerfile: Dockerfile-node
     ports:
       - "8000:8000"
     depends_on:
       - db
     environment: 
       - DATABASE_HOST=db
+    volumes: 
+      - ./src:/app/src/
   db:
-    build: ./database
+    build:
+      context: ./
+      dockerfile: Dockerfile-mysql

@@ -14,10 +14,18 @@ class AuthenticationHandler {
     this.init()
   }
 
+  /**
+   * Initialize routes for /auth endpoint
+   */
   init() {
     this.router.post('/', this.authenticate)
   }
 
+  /**
+   * Authenticates a user using JWT
+   * @param {Request} req
+   * @param {Response} res 
+   */
   authenticate(req: Request, res: Response) {
     const UserData = req.body
 
@@ -32,19 +40,18 @@ class AuthenticationHandler {
 
             const encryptedPassword = data.password
 
-            // Compare plaintext and encrypted passwords
+            // Encrypt plaintext and compare to stored password
             bcrypt.compare(password, encryptedPassword)
                   .then(valid => {
                     const { dataValues } = data
 
-                    // If the passwords matched
                     if (valid) {
                       let token = jwt.sign({ email: dataValues.email, isAdmin: dataValues.isAdmin }, 'supersecret')
                       res.json({ token }) 
                     }
 
-                    // Otherwise the password was invalid
-                    res.status(400).json({ message: 'invalid password'} )
+                    // Invalid Password
+                    res.status(400).json({ message: 'Invalid password'} )
                   })
           })
           .catch(err => {
@@ -53,7 +60,7 @@ class AuthenticationHandler {
           })
     } else {
       // Not enough info provided
-      res.status(400).json({ message: 'must provide an email and password' })
+      res.status(400).json({ message: 'Must provide an email and password' })
     }
   }
 }

@@ -6,8 +6,7 @@
   "scripts": {
     "start": "tsc && node dist/index.js",
     "test": "mocha",
-    "compile-watch": "tsc --watch",
-    "dev": "nodemon dist/index.js"
+    "dev": "nodemon -e ts dist/index.js"
   },
   "keywords": [],
   "author": "Trevor Pace",
